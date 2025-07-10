@@ -13,22 +13,17 @@ return new class extends Migration
     {
         Schema::create('produk_serials', function (Blueprint $table) {
             $table->id();
-
-            // Relasi dasar
             $table->foreignId('produk_id')->constrained('produks')->onDelete('cascade');
             $table->foreignId('lokasi_id')->constrained('lokasis')->onDelete('cascade');
 
-            // Identifikasi fisik
             $table->string('serial_number')->nullable()->index();  // IMEI / Serial
             $table->string('barcode')->nullable()->index();        // EAN/QR/barcode
             $table->string('batch_number')->nullable();            // No batch produksi
 
-            // Atribut produk universal
             $table->date('tanggal_produksi')->nullable();
             $table->date('expired_at')->nullable();
             $table->date('garansi_sampai')->nullable();            // Untuk barang elektronik
 
-            // Status barang (lebih lengkap)
             $table->enum('status', [
                 'tersedia',     // Barang aktif dan siap dipakai/dijual
                 'rusak',        // Barang rusak
@@ -40,12 +35,27 @@ return new class extends Migration
                 'dihapus',      // Barang secara sistem dihapus
             ])->default('tersedia');
 
-            // Tracking mutasi
-            $table->foreignId('mutasi_id')->nullable()->constrained('mutasis')->nullOnDelete();
-            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete(); // siapa input/scan
+            $table->text('keterangan')->nullable();
+            $table->timestamps();
+        });
 
-            // Deskripsi tambahan
-            $table->text('keterangan')->nullable();     // catatan bebas
+        Schema::create('mutasi_serials', function (Blueprint $table) {
+            $table->id();
+
+            $table->foreignId('mutasi_id')->constrained('mutasis')->onDelete('cascade');
+            $table->foreignId('produk_serial_id')->constrained('produk_serials')->onDelete('cascade');
+
+            $table->text('keterangan')->nullable();
+
+            $table->timestamps();
+        });
+
+        Schema::create('transfer_serials', function (Blueprint $table) {
+            $table->id();
+
+            $table->foreignId('transfer_detail_id')->constrained('transfer_details')->onDelete('cascade');
+            $table->foreignId('produk_serial_id')->constrained('produk_serials')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -55,6 +65,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('mutasi_serials');
+        Schema::dropIfExists('transfer_serials');
         Schema::dropIfExists('produk_serials');
     }
 };

@@ -16,6 +16,7 @@ class Produk extends Model
         'kategori_produk_id',
         'satuan_produk_id',
         'deskripsi',
+        'harga_jual',
     ];
 
     protected $hidden = [

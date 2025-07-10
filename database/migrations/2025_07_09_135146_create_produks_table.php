@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('kategori_produk_id')->constrained('kategori_produks')->onDelete('cascade');
             $table->foreignId('satuan_produk_id')->constrained('satuan_produks')->onDelete('cascade');
             $table->text('deskripsi')->nullable();
+            $table->decimal('harga_jual', 16, 2)->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

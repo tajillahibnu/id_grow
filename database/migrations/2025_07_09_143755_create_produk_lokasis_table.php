@@ -17,6 +17,13 @@ return new class extends Migration
             $table->foreignId('lokasi_id')->constrained('lokasis')->onDelete('cascade');
             $table->integer('stok')->default(0);
             $table->integer('min_stok')->default(0);
+
+            $table->decimal('harga_eceran', 16, 2)->nullable();       // Harga satuan kecil
+            $table->unsignedInteger('min_eceran')->default(1);
+
+            $table->decimal('harga_grosir', 16, 2)->nullable();       // Harga grosir (biasanya lebih murah)
+            $table->unsignedInteger('min_grosir')->nullable();
+
             $table->timestamps();
         });
     }

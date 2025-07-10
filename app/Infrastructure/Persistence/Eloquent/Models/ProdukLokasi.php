@@ -13,7 +13,11 @@ class ProdukLokasi extends Model
         'produk_id',
         'lokasi_id',
         'stok',
-        'min_stok'
+        'min_stok',
+        'harga_eceran',
+        'min_eceran',
+        'harga_grosir',
+        'min_grosir',
     ];
 
     public function produk()

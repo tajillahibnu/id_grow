@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Infrastructure\Persistence\Eloquent\Models\AppPermission;
 use App\Infrastructure\Persistence\Eloquent\Models\AppRoles;
 use App\Infrastructure\Persistence\Eloquent\Models\KategoriProduk;
+use App\Infrastructure\Persistence\Eloquent\Models\Supliers;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
             SatuanProdukSeeder::class,
             KategoriProdukSeeder::class,
             JenisMutasiSeeder::class,
+            SupplierSeeder::class,
         ]);
         User::factory()->create([
             'name' => 'Test User',

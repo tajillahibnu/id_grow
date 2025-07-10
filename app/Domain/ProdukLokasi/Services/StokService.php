@@ -31,4 +31,23 @@ class StokService
         $produkLokasi->stok += $jumlah;
         $produkLokasi->save();
     }
+
+    public function hitungHargaTotal(int $jumlah, float $hargaEceran, int $minEceran, ?float $hargaGrosir, ?int $minGrosir): float
+    {
+        if ($hargaGrosir !== null && $minGrosir !== null && $jumlah >= $minGrosir) {
+            return $jumlah * $hargaGrosir;
+        }
+
+        return $jumlah * $hargaEceran;
+    }
+
+    //     $jumlah1 = 5;
+    // $total1 = hitungHargaTotal($jumlah1, 10000, 1, 8500, 12);
+    // echo "Jumlah: $jumlah1, Total Harga: Rp " . number_format($total1, 0, ',', '.') . "\n";
+    // // Output: Jumlah: 5, Total Harga: Rp 50.000
+
+    // $jumlah2 = 15;
+    // $total2 = hitungHargaTotal($jumlah2, 10000, 1, 8500, 12);
+    // echo "Jumlah: $jumlah2, Total Harga: Rp " . number_format($total2, 0, ',', '.') . "\n";
+    // // Output: Jumlah: 15, Total Harga: Rp 127.500
 }

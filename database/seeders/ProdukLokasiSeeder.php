@@ -5,50 +5,51 @@ namespace Database\Seeders;
 use App\Infrastructure\Persistence\Eloquent\Models\Lokasi;
 use App\Infrastructure\Persistence\Eloquent\Models\Produk;
 use App\Infrastructure\Persistence\Eloquent\Models\ProdukLokasi;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ProdukLokasiSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        $produkIds = Produk::pluck('id')->toArray();
+        $produks = Produk::all();
         $lokasiIds = Lokasi::pluck('id')->toArray();
 
-        foreach ($produkIds as $produkId) {
+        foreach ($produks as $produk) {
+            $randomLokasiId = $lokasiIds[array_rand($lokasiIds)];
+
             ProdukLokasi::create([
-                'produk_id' => $produkId,
-                'lokasi_id' => $lokasiIds[array_rand($lokasiIds)],
-                'stok' => rand(5, 50),
-                'min_stok' => rand(1, 5),
+                'produk_id'      => $produk->id,
+                'lokasi_id'      => $randomLokasiId,
+                'stok'           => rand(5, 50),
+                'min_stok'       => rand(1, 5),
+                'harga_eceran'   => $produk->harga_jual,
+                'min_eceran'     => 1,
+                'harga_grosir'   => $produk->harga_jual * 0.85,
+                'min_grosir'     => 10,
             ]);
         }
 
+        // Khusus produk 1-3 di lokasi 1 dan 2
         for ($i = 1; $i <= 3; $i++) {
-            ProdukLokasi::updateOrCreate(
-                [
-                    'produk_id' => $i,
-                    'lokasi_id' => 1,
-                ],
-                [
-                    'stok' => 50,
-                    'min_stok' => 2,
-                ]
-            );
+            $produk = Produk::find($i);
+            if (!$produk) continue;
 
-            ProdukLokasi::updateOrCreate(
-                [
-                    'produk_id' => $i,
-                    'lokasi_id' => 2,
-                ],
-                [
-                    'stok' => 50,
-                    'min_stok' => 2,
-                ]
-            );
+            foreach ([1, 2] as $lokasiId) {
+                ProdukLokasi::updateOrCreate(
+                    [
+                        'produk_id' => $produk->id,
+                        'lokasi_id' => $lokasiId,
+                    ],
+                    [
+                        'stok'           => 50,
+                        'min_stok'       => 2,
+                        'harga_eceran'   => $produk->harga_jual,
+                        'min_eceran'     => 1,
+                        'harga_grosir'   => $produk->harga_jual * 0.85,
+                        'min_grosir'     => 10,
+                    ]
+                );
+            }
         }
     }
 }

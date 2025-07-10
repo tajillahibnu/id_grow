@@ -5,17 +5,12 @@ namespace Database\Seeders;
 use App\Infrastructure\Persistence\Eloquent\Models\KategoriProduk;
 use App\Infrastructure\Persistence\Eloquent\Models\Produk;
 use App\Infrastructure\Persistence\Eloquent\Models\SatuanProduk;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ProdukSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // Ambil semua kategori dan satuan dalam array associative berdasarkan kode supaya mudah referensi
         $kategoriMap = KategoriProduk::all()->keyBy('kode');
         $satuanMap = SatuanProduk::all()->keyBy('kode');
 
@@ -109,12 +104,23 @@ class ProdukSeeder extends Seeder
         ];
 
         foreach ($produks as $data) {
+            $kategoriKode = $data['kategori_kode'];
+            $hargaJual = match ($kategoriKode) {
+                'ELEC' => rand(1000000, 5000000),
+                'FASH' => rand(50000, 300000),
+                'FOOD' => rand(5000, 50000),
+                'BOOK' => rand(20000, 100000),
+                'HOME' => rand(50000, 500000),
+                default => rand(10000, 100000),
+            };
+
             Produk::create([
                 'kode' => $data['kode'],
                 'name' => $data['name'],
-                'kategori_produk_id' => $kategoriMap[$data['kategori_kode']]->id ?? null,
+                'kategori_produk_id' => $kategoriMap[$kategoriKode]->id ?? null,
                 'satuan_produk_id' => $satuanMap[$data['satuan_kode']]->id ?? null,
                 'deskripsi' => $data['deskripsi'] ?? null,
+                'harga_jual' => $hargaJual,
             ]);
         }
     }

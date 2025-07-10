@@ -34,4 +34,9 @@ class Mutasi extends Model
     {
         return $this->belongsTo(JenisMutasi::class);
     }
+
+    public function mutasiSerials()
+    {
+        return $this->hasMany(MutasiSerial::class);
+    }
 }
