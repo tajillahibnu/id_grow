@@ -7,6 +7,7 @@ use App\Interface\Http\Controllers\Api\LokasiController;
 use App\Interface\Http\Controllers\Api\MemberController;
 use App\Interface\Http\Controllers\Api\ProdukController;
 use App\Interface\Http\Controllers\Api\SatuanProdukController;
+use App\Interface\Http\Controllers\Api\SupplierController;
 use App\Interface\Http\Controllers\Api\TransferController;
 use App\Interface\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -89,6 +90,17 @@ Route::controller(ProdukController::class)
         Route::post('/delete/{id}', 'deleteData')->middleware('check.permission:delete_produk');
     });
 
+Route::controller(SupplierController::class)
+    ->middleware(['auth:api', 'jwt.claims'])
+    ->prefix('supplier')
+    ->group(function () {
+        Route::get('/', 'getAllData')->middleware('check.permission:read_supplier');
+        Route::get('/{id}', 'getDataById')->middleware('check.permission:read_supplier');
+        Route::post('/', 'newData')->middleware('check.permission:store_supplier');
+        Route::post('/update/{id}', 'updateData')->middleware('check.permission:update_supplier');
+        Route::post('/delete/{id}', 'deleteData')->middleware('check.permission:delete_supplier');
+    });
+
 Route::controller(UserController::class)
     ->middleware(['auth:api', 'jwt.claims'])
     ->prefix('user')
@@ -134,4 +146,5 @@ Route::prefix('produk-serial')
         Route::post('/update/{id}', [App\Interface\Http\Actions\ProdukSerial\UpdateProdukSerialAction::class, '__invoke']);
         Route::post('/delete/{id}', [App\Interface\Http\Actions\ProdukSerial\DeleteProdukSerialAction::class, '__invoke']);
     });
+
 // >>> AUTO-GENERATED ROUTES END <<<

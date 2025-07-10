@@ -93,6 +93,14 @@ class AppMenuSeeder extends Seeder
 
         $permissionSlugs = ['store', 'update', 'delete', 'read'];
         $this->actionMenu($roleMenu, $permissionSlugs);
+
+        $save['id']         = $id . $dd++;
+        $save['parent_id']  = $id;
+        $save['slug']       = 'supplier';
+        $roleMenu = AppMenu::create($save);
+
+        $permissionSlugs = ['store', 'update', 'delete', 'read'];
+        $this->actionMenu($roleMenu, $permissionSlugs);
     }
 
     private function actionMenu($roleMenu, $permissionSlugs)

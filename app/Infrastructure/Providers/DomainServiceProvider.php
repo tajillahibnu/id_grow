@@ -26,6 +26,7 @@ class DomainServiceProvider extends ServiceProvider
         $this->app->register(ProdukLokasiServiceProvider::class);
         $this->app->register(ProdukSerialServiceProvider::class);
                 $this->app->register(UserServiceProvider::class);
+                $this->app->register(SupliersServiceProvider::class);
         // add new serviceprovider
         $this->app->bind(ProdukRepositoryInterface::class, EloquentProdukRepository::class);
         $this->app->bind(MutasiRepositoryInterface::class, EloquentMutasiRepository::class);
