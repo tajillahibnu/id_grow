@@ -23,7 +23,7 @@ services:
     volumes:
       - v-database:/var/lib/mysql
     environment:
-      MARIADB_DATABASE: sekolah-pkl
+      MARIADB_DATABASE: id_grow_project
       MARIADB_USER: root
       MARIADB_PASSWORD: m@l4ng
       MARIADB_ROOT_PASSWORD: m@l4ng
