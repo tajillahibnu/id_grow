@@ -7,6 +7,7 @@ use App\Application\Auth\UseCase\LoginUserJwt;
 use App\Application\Auth\UseCase\LogoutTokenJwt;
 use App\Application\User\DTOs\LoginUserDTO;
 use App\Http\Controllers\Controller;
+use App\Interface\Http\Requests\LoginRequest;
 use App\Traits\ApiResponseTrait;
 use Exception;
 use Illuminate\Http\Request;
@@ -43,7 +44,7 @@ class MemberController extends Controller
         }
     }
 
-    public function doLogin(Request $request, LoginUserJwt $doLogin)
+    public function doLogin(LoginRequest $request, LoginUserJwt $doLogin)
     {
         try {
             $dto = LoginUserDTO::fromRequest($request);

@@ -14,7 +14,6 @@ class UserStoreUpdateRequest extends FormRequest
 
         $rules = [
             'name'             => ['required', 'string', 'max:150'],
-            'romawi'           => ['nullable', 'string'],
             'lokasi_id'        => ['required', 'exists:lokasis,id'],  // Lokasi ID harus ada dalam tabel `lokasis`
             'primary_role_id'  => ['required', 'exists:app_roles,id'],  // Role ID harus ada dalam tabel `roles`
         ];
