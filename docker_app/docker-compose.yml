@@ -1,0 +1,40 @@
+services:
+  laravel:
+    restart: unless-stopped
+    container_name: laravelapp
+    build:
+      context: ../
+      dockerfile: ./docker_app/Dockerfile
+    volumes:
+      - ../:/var/www/html/
+      - ./nginx.conf:/etc/nginx/http.d/default.conf
+      - ./supervisord.conf:/etc/supervisord.conf
+    ports:
+      - "8080:80"
+    networks:
+      - n-laravel
+    depends_on:
+      - database
+      
+  database:
+    restart: unless-stopped
+    container_name: laraveldb
+    image: mariadb:latest
+    volumes:
+      - v-database:/var/lib/mysql
+    environment:
+      MARIADB_DATABASE: sekolah-pkl
+      MARIADB_USER: root
+      MARIADB_PASSWORD: m@l4ng
+      MARIADB_ROOT_PASSWORD: m@l4ng
+    ports:
+      - "3306:3306"
+    networks:
+      - n-laravel
+
+volumes:
+  v-database:
+
+networks:
+  n-laravel:
+    driver: bridge
