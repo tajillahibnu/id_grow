@@ -159,6 +159,7 @@ Untuk menggunakan Postman Collection, ikuti langkah-langkah berikut:
 
 ## 📂 Struktur Proyek
 Berikut adalah struktur proyek:
+```
 project-root/
 ├── app/                                     
 │   ├── Domain/                               
@@ -195,3 +196,4 @@ project-root/
 ├── docker_app/                                   
 │   ├── docker-compose.yml                             
 │   └── Dockerfile                            
+```
