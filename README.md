@@ -23,8 +23,8 @@ Aplikasi ini adalah sistem **Manajemen Stok Produk** yang dikembangkan menggunak
   - Transfer Keluar ✅ *(Selesai)*
 - 📥 Pengadaan Produk *(Hanya Struktur DB)*
 - 💰 Transaksi Produk *(Hanya Struktur DB)*
-- 🔢 Serial Produk
-- 📌 Mutasi Produk
+- 🔢 Serial Produk *(CRUD tanpa proses mutasi)*
+- 📌 Mutasi Produk *(teraplikasi hanya pada transfer produk)*
 - 📚 History Mutasi berdasarkan:
   - Produk
   - User
@@ -51,6 +51,7 @@ Proyek ini mengadopsi pendekatan:
 - ✅ **Clean Architecture**
 - ✅ **Hexagonal (Ports & Adapters)**
 
+---
 
 ## 🏗️ Teknologi yang Digunakan  
 
@@ -60,7 +61,7 @@ Proyek ini mengadopsi pendekatan:
 - **MySQL** – Database relasional untuk menyimpan data  
 - **JWT Authentication** – Sistem keamanan berbasis token untuk autentikasi pengguna  
 
-
+---
 
 ## 🛠 Langkah Instalasi Laravel
 
@@ -80,7 +81,7 @@ cd id_grow
 Masuk ke folder **`docker_app/`** dan jalankan perintah berikut untuk membangun dan menjalankan aplikasi menggunakan Docker Compose:
 ```
 cd docker_app
-docker-compose up --build
+docker compose up --build
 ```
 ### 2️⃣ Masuk ke terminal container
 Setelah container berjalan, masuk ke terminal aplikasi dengan perintah berikut:
@@ -90,7 +91,10 @@ docker exec -it laravelapp sh
 ### 3️⃣ Install Laravel
 Jika pertama kali menjalankan container, Anda perlu menginstal Laravel di dalam container:
 ```
+cp .env.example .env
 composer install
+php artisan key:generate
+php artisan migrate --seed
 ```
 ### 4️⃣ Akses Aplikasi
 Akses aplikasi di browser dengan URL berikut:
@@ -100,12 +104,14 @@ http://localhost:8080
 ### 🧹 Menghentikan Layanan
 Untuk menghentikan aplikasi dan membersihkan semua container yang sedang berjalan:
 ```
-docker-compose down
+docker compose down
 ```
 Jika Anda ingin menghentikan aplikasi tanpa menghapus container, Anda bisa menggunakan:
 ```
-docker-compose stop
+docker compose stop
 ```
+
+
 ### 🚀 Metode 2: Menjalankan Tanpa Docker (Local Development)
 
 ### 1️⃣ Salin File .env
@@ -144,6 +150,8 @@ Jika Anda ingin menjalankan aplikasi di local server, gunakan:
 php artisan serve
 ```
 
+---
+
 ## 🔗 Dokumentasi API - Postman Collection
 
 Anda dapat mengakses **Postman Collection** untuk API aplikasi ini di link berikut:
@@ -156,6 +164,7 @@ Untuk menggunakan Postman Collection, ikuti langkah-langkah berikut:
 2. Impor collection ke dalam aplikasi Postman Anda.
 3. Gunakan endpoint yang disediakan di collection untuk menguji API aplikasi ini.
 
+---
 
 ## 📂 Struktur Proyek
 Berikut adalah struktur proyek:
