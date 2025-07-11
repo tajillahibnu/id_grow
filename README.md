@@ -171,17 +171,18 @@ project-root/
 │   ├── Application/                          
 │   │   ├── DTOs/                             
 │   │   └── UseCase/                          
-│   └── Infrastructure/                       
-│       ├── Providers/                        
-│       ├── Services/                         
-│       ├── Persistence/                      
-│       │   ├── Eloquent/                     
-│       │   └── Model/                        
+│   ├── Infrastructure/                       
+│   │   ├── Providers/                        
+│   │   ├── Services/                         
+│   │   ├── Persistence/                      
+│   │   │   ├── Eloquent/                     
+│   │   │   └── Model/   
+│   └── Interface/                         
 │       └── Http/                             
 │           ├── Controllers/                  
 │           │   └── Api/                      
 │           ├── Middleware/                   
-│           └── Requests/                     
+│           └── Requests/                      
 ├── config/                                   
 ├── database/                                 
 │   ├── migrations/                           
@@ -195,5 +196,5 @@ project-root/
 │   └── api.php    
 ├── docker_app/                                   
 │   ├── docker-compose.yml                             
-│   └── Dockerfile                            
+│   └── Dockerfile
 ```
